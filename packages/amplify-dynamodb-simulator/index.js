@@ -73,14 +73,16 @@ async function which(bin) {
 }
 
 function buildArgs(options) {
-  const args = ['-Djava.library.path=./DynamoDBLocal_lib', '-jar', 'DynamoDBLocal.jar', '-port', options.port];
-  if (options.dbPath) {
-    args.push('-dbPath');
-    args.push(options.dbPath);
-  }
+  const args = [];
 
   if (options.javaOpts) {
     args.push(...options.javaOpts.split(' '));
+  }
+
+  args.push(...['-Djava.library.path=./DynamoDBLocal_lib', '-jar', 'DynamoDBLocal.jar', '-port', options.port]);
+  if (options.dbPath) {
+    args.push('-dbPath');
+    args.push(options.dbPath);
   }
 
   // dbPath overrides in memory
